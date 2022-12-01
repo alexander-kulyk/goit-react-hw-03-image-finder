@@ -4,10 +4,10 @@ import ImgList from "./ImageGallery.styled"
 
 
 export const ImageGallery = ({imgData}) =>{
-    const images = imgData.hits;
+    const images = imgData?.hits;
     return(
         <ImgList>
-        {images.map(item => (
+        {images && images.map(item => (
             <ImageGalleryItem image ={item}/>
         ))}
         </ImgList>
