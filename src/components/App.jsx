@@ -18,6 +18,8 @@ export class App extends Component {
   }
 
   async componentDidUpdate(_,  pS){
+    console.log('PS',pS)
+    console.log("this.state", this.state)
     const { inputValue, page } = this.state;
 
     if (pS.inputValue !== inputValue || pS.page !== page ) {
@@ -42,9 +44,15 @@ export class App extends Component {
   }
 
   handleSubmit =  inputValue =>{
+    if (inputValue === '') {
+      alert('name motherfucker')
+      return
+    }
+
     this.setState({
       inputValue,
       loading: false,
+      images:[],
       page: 1
     })
       
@@ -63,7 +71,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSubmit}/>
         <ImageGallery imgData={images}/>
         {loading && <Loader/>}
-        {images.length > 0 && <ButtonLoadMore onClickBtn ={this.onClickLoadMoreBtn} />}
+        {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}
         <Modal/>
       </div>
     );
