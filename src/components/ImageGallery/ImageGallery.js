@@ -7,8 +7,8 @@ export const ImageGallery = ({imgData}) =>{
     const images = imgData?.hits;
     return(
         <ImgList>
-        {images && images.map(item => (
-            <ImageGalleryItem image ={item}/>
+        {images && images.map(img => (
+            <ImageGalleryItem key={img.id} image ={img}/>
         ))}
         </ImgList>
 

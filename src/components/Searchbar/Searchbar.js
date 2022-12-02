@@ -13,7 +13,7 @@ export class Searchbar extends Component{
     }
     handleSubmitForm = e =>{
         e.preventDefault();
-
+        // console.log(e.currentTarget.elements.image.value)
         const { image } = this.state;
         const { onSubmit } = this.props;
         onSubmit(image);
