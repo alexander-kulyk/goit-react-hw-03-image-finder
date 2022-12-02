@@ -11,26 +11,48 @@ import { getImages } from "./service/api";
 export class App extends Component {
 
   state={
-    images: null,
+    inputValue: '',
+    images: [],
     loading: false,
-  };
+    page: 1
+  }
 
+  async componentDidUpdate(_,  pS){
+    const { inputValue, page } = this.state;
 
-  handleSubmit = async inputValue =>{
+    if (pS.inputValue !== inputValue || pS.page !== page ) {
+
       try {
         this.setState({loading: true})
-        const resp = await getImages(inputValue)
-        const imagesData = resp.data
+        const resp = await getImages(inputValue, page)
+        const imagesData = resp.data.hits
         
-        this.setState({ images: imagesData, loading: false})
+        
+        this.setState({ 
+          images: [...pS.images,...imagesData], 
+          loading: false, 
+        })
         
       } catch (error) {
         console.log(error);
         
       }
+      
+    }
+  }
+
+  handleSubmit =  inputValue =>{
+    this.setState({
+      inputValue,
+      loading: false,
+      page: 1
+    })
+      
   }
   onClickLoadMoreBtn = e =>{
-      console.log(e)
+      this.setState(pS =>({
+        page: pS.page +1
+      }))
   }
 
   render(){
@@ -41,7 +63,7 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSubmit}/>
         <ImageGallery imgData={images}/>
         {loading && <Loader/>}
-        {images && <ButtonLoadMore onClickBtn ={this.onClickLoadMoreBtn} />}
+        {images.length > 0 && <ButtonLoadMore onClickBtn ={this.onClickLoadMoreBtn} />}
         <Modal/>
       </div>
     );
