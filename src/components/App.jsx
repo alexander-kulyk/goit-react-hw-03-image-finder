@@ -2,6 +2,7 @@ import { Component } from "react";
 import { ButtonLoadMore } from "./ButtonLoadMore/Button";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Loader } from "./Loader/Loader";
+import { Modal } from "./Modal/Modal";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { getImages } from "./service/api";
 
@@ -41,6 +42,7 @@ export class App extends Component {
         <ImageGallery imgData={images}/>
         {loading && <Loader/>}
         {images && <ButtonLoadMore onClickBtn ={this.onClickLoadMoreBtn} />}
+        <Modal/>
       </div>
     );
 
