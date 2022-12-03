@@ -9,7 +9,12 @@ import { SearchBtn } from "components/Searchbar/Searchbar.styled";
 export const ButtonLoadMore = ({onClickBtn, disabled}) =>{
     return(
         <div style={{display:'flex', alignItems:'center',justifyContent:'center'}}>
-            <SearchBtn type="button" disabled={disabled} onClick={onClickBtn}>Load More</SearchBtn>
+            <SearchBtn 
+                type="button" 
+                disabled={disabled} 
+                onClick={onClickBtn}
+                style={{marginBottom: '10px'}}
+                >Load More</SearchBtn>
         </div>
         
     )
