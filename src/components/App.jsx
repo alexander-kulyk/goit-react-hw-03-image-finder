@@ -10,16 +10,19 @@ import { getImages } from "./service/api";
 
 export class App extends Component {
 
-  state={
+  state = {
     inputValue: '',
     images: [],
     loading: false,
-    page: 1
+    page: 1,
+    imageURL: '',
+    tags:'',
+
+    visible: false,
   }
 
   async componentDidUpdate(_,  pS){
-    console.log('PS',pS)
-    console.log("this.state", this.state)
+    
     const { inputValue, page } = this.state;
 
     if (pS.inputValue !== inputValue || pS.page !== page ) {
@@ -63,16 +66,31 @@ export class App extends Component {
       }))
   }
 
+  onClickCard = (largeImageURL, tags) => {
+   
+    this.setState({
+      imageURL: largeImageURL,
+      tags
+    })
+    this.toggle()
+  }
+
+  toggle = () =>{
+      this.setState( pS =>({
+        visible: !pS.visible
+    }))
+  }
+
   render(){
 
-    const { images, loading } = this.state
+    const { images, loading, imageURL, tags, visible } = this.state
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit}/>
-        <ImageGallery imgData={images}/>
+        <ImageGallery imgData={images} onClickCard={this.onClickCard}/>
         {loading && <Loader/>}
         {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}
-        <Modal/>
+        {visible && <Modal url ={imageURL}  tags={tags} toggle ={this.toggle}/>}
       </div>
     );
 

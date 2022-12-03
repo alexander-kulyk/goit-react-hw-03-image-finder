@@ -1,15 +1,39 @@
+import { Component } from "react"
 import { Overlay, ModalBody, Img } from "./Modal.styled"
 
 
 
-export const Modal = () =>{
-    return(
+export class Modal extends Component{
 
-        <Overlay>
-            <ModalBody>
-                <Img src="" alt=""/>
-            </ModalBody>
-        </Overlay>
+    componentDidMount(){
+        window.addEventListener('keydown', this.handeleKeyDown)
+    }
 
-    )
+    componentWillUnmount(){
+        window.removeEventListener('keydown',  this.handeleKeyDown )
+    }
+
+    handeleKeyDown = e =>{
+        if (e.code === 'Escape') {
+            this.props.toggle(); 
+        }
+    }
+
+
+    render(){
+        const {url, tags } = this.props
+        return(
+
+            <Overlay>
+                <ModalBody>
+                    <Img src={url} alt={tags}/>
+                </ModalBody>
+            </Overlay>
+    
+        )
+
+    }
+    
 }
+
+//({url, tags})

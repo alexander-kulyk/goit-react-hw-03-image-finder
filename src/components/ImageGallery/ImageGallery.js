@@ -3,13 +3,10 @@ import ImgList from "./ImageGallery.styled"
 
 
 
-export const ImageGallery = ({imgData}) =>{
-    const images = imgData;
+export const ImageGallery = ({ imgData, onClickCard }) =>{
     return(
-        <ImgList>
-        {images.length > 0 && images.map(img => (
-            <ImageGalleryItem key={img.id} image ={img}/>
-        ))}
+        <ImgList >
+            <ImageGalleryItem imgData={imgData} onClickCard={onClickCard} />
         </ImgList>
 
     )
