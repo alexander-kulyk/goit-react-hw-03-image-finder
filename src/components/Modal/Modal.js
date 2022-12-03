@@ -21,7 +21,7 @@ export class Modal extends Component{
 
 
     render(){
-        const {url, tags } = this.props
+        const { url, tags } = this.props
         return(
 
             <Overlay>

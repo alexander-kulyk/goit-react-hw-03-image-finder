@@ -15,8 +15,7 @@ export class App extends Component {
     images: [],
     loading: false,
     page: 1,
-    imageURL: '',
-    tags:'',
+    selectedItem:[],
 
     visible: false,
   }
@@ -31,12 +30,27 @@ export class App extends Component {
         this.setState({loading: true})
         const resp = await getImages(inputValue, page)
         const imagesData = resp.data.hits
-        
-        
+        console.log(imagesData)
+
         this.setState({ 
-          images: [...pS.images,...imagesData], 
-          loading: false, 
-        })
+              images: pS.inputValue === inputValue 
+                ? [...pS.images,...imagesData]
+                : [...imagesData],
+              loading: false, 
+            })
+        
+        // if (pS.inputValue === inputValue) {
+        //   this.setState({ 
+        //     images: [...pS.images,...imagesData], 
+        //     loading: false, 
+        //   })
+        // }else{
+        //   this.setState({
+        //     images: [...imagesData],
+        //     loading: false, 
+        //   })
+        // }
+        
         
       } catch (error) {
         console.log(error);
@@ -66,11 +80,14 @@ export class App extends Component {
       }))
   }
 
-  onClickCard = (largeImageURL, tags) => {
+  onClickCard = id => {
+    const { images } = this.state;
+
+    const item = images.find(img => img.id === id);
+    console.log(item);
    
     this.setState({
-      imageURL: largeImageURL,
-      tags
+      selectedItem: item
     })
     this.toggle()
   }
@@ -83,14 +100,16 @@ export class App extends Component {
 
   render(){
 
-    const { images, loading, imageURL, tags, visible } = this.state
+    const { images, loading, selectedItem, visible } = this.state
+    const { url, tags} = selectedItem
+    
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit}/>
         <ImageGallery imgData={images} onClickCard={this.onClickCard}/>
         {loading && <Loader/>}
         {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}
-        {visible && <Modal url ={imageURL}  tags={tags} toggle ={this.toggle}/>}
+        {visible && <Modal  url ={url} tags={tags} toggle ={this.toggle}/>}
       </div>
     );
 
