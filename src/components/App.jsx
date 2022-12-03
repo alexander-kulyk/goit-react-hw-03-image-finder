@@ -13,10 +13,12 @@ export class App extends Component {
   state = {
     inputValue: '',
     images: [],
-    loading: false,
     page: 1,
     selectedItem:[],
 
+    loading: false,
+    status: 'idle',
+    error: null,
     visible: false,
   }
 
@@ -30,13 +32,19 @@ export class App extends Component {
         this.setState({loading: true})
         const resp = await getImages(inputValue, page)
         const imagesData = resp.data.hits
-        console.log(imagesData)
+        
+
+        if ( imagesData.length === 0) {
+          throw new Error('Not a valid word');
+  
+        }
 
         this.setState({ 
               images: pS.inputValue === inputValue 
                 ? [...pS.images,...imagesData]
                 : [...imagesData],
               loading: false, 
+              status: 'resolved',
             })
         
         // if (pS.inputValue === inputValue) {
@@ -53,6 +61,11 @@ export class App extends Component {
         
         
       } catch (error) {
+        this.setState({
+          status: "rejected", 
+          loading: false,
+          error
+        })
         console.log(error);
         
       }
@@ -80,6 +93,7 @@ export class App extends Component {
       }))
   }
 
+
   onClickCard = id => {
     const { images } = this.state;
 
@@ -98,18 +112,21 @@ export class App extends Component {
     }))
   }
 
+
   render(){
 
-    const { images, loading, selectedItem, visible } = this.state
-    const { url, tags} = selectedItem
+    const { images, loading, selectedItem, visible, status, error } = this.state
+    const { largeImageURL, tags} = selectedItem
     
     return (
       <div>
         <Searchbar onSubmit={this.handleSubmit}/>
-        <ImageGallery imgData={images} onClickCard={this.onClickCard}/>
+        {status === 'resolved' && <ImageGallery imgData={images} onClickCard={this.onClickCard}/>}
+        {status === 'idle' && <p style={{color: 'black', textAlign: "center"}}>Write something</p>}
+        {status === 'rejected' && <p style={{color: 'red',  textAlign: "center"}}>{error?.message}! Try again!</p>}
         {loading && <Loader/>}
         {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}
-        {visible && <Modal  url ={url} tags={tags} toggle ={this.toggle}/>}
+        {visible && <Modal  url ={largeImageURL} tags={tags} toggle ={this.toggle}/>}
       </div>
     );
 

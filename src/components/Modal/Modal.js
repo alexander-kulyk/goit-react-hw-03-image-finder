@@ -22,18 +22,14 @@ export class Modal extends Component{
 
     render(){
         const { url, tags } = this.props
-        return(
 
+        return(
             <Overlay>
                 <ModalBody>
                     <Img src={url} alt={tags}/>
                 </ModalBody>
             </Overlay>
     
-        )
-
-    }
-    
+        );
+    } 
 }
-
-//({url, tags})
