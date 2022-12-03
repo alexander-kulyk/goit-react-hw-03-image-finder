@@ -1,5 +1,6 @@
-import { Component } from "react"
-import { Overlay, ModalBody, Img } from "./Modal.styled"
+import { Component } from "react";
+import PropTypes  from "prop-types";
+import { Overlay, ModalBody, Img } from "./Modal.styled";
 
 
 
@@ -33,3 +34,9 @@ export class Modal extends Component{
         );
     } 
 }
+
+Modal.propTypes = {
+    toggle: PropTypes.func.isRequired,
+    url: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
+};
