@@ -1,38 +1,39 @@
 import { Component } from "react";
+import PropTypes  from "prop-types";
 import { Form, Header, Input, NameBtn, SearchBtn } from "./Searchbar.styled";
 
 
 export class Searchbar extends Component{
     state = {
-        image:''
+        query:''
     }
 
 
     handelChangeInput = e =>{
-        this.setState({image: e.target.value})
+        this.setState({query: e.target.value})
     }
     handleSubmitForm = e =>{
         e.preventDefault();
-        // console.log(e.currentTarget.elements.image.value)
-        const { image } = this.state;
+        // console.log(e.currentTarget.elements.query.value)
+        const { query } = this.state;
         const { onSubmit } = this.props;
-        onSubmit(image);
+        onSubmit(query);
 
     }
 
     render(){
-        const { image } = this.state
+        const { query } = this.state
         
         return(
             <Header>
                 <Form onSubmit={this.handleSubmitForm}>
                     <Input 
                         type='text'
-                        name="image"
+                        name="query"
                         autocomplete="off"
                         placeholder="Search images and photos"
 
-                        value={image}
+                        value={query}
                         onChange={this.handelChangeInput}
                     />
                     <SearchBtn type="submit">
@@ -43,4 +44,8 @@ export class Searchbar extends Component{
             </Header>
         )
     }
+}
+
+Searchbar.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
 }
