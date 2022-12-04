@@ -1,10 +1,13 @@
 import { Component } from "react";
+import { ToastContainer,  toast } from 'react-toastify';
 import { ButtonLoadMore } from "./ButtonLoadMore/Button";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Loader } from "./Loader/Loader";
 import { Modal } from "./Modal/Modal";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { getImages } from "./service/api";
+
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -32,8 +35,6 @@ export class App extends Component {
         this.setState({loading: true})
         const resp = await getImages(inputValue, page)
         const imagesData = resp.data.hits;
-        console.log(imagesData);
-        
 
         if ( imagesData.length === 0) {
           throw new Error('Not a valid word');
@@ -76,7 +77,9 @@ export class App extends Component {
 
   handleSubmit =  inputValue =>{
     if (inputValue === '') {
-      alert('name motherfucker')
+      toast('Write something', {
+        position: toast.POSITION.BOTTOM_CENTER
+      });
       return
     }
 
@@ -128,6 +131,7 @@ export class App extends Component {
         {loading && <Loader/>}
         {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}
         {visible && <Modal  url ={largeImageURL} tags={tags} toggle ={this.toggle}/>}
+        <ToastContainer autoClose={3000}/>
       </div>
     );
 

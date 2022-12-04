@@ -19,6 +19,11 @@ export class Searchbar extends Component{
         const { onSubmit } = this.props;
         onSubmit(query);
 
+        this.reset()
+
+    }
+    reset = () =>{
+        this.setState({query: '',})
     }
 
     render(){
