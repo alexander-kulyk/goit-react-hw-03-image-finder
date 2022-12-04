@@ -126,7 +126,7 @@ export class App extends Component {
       <div>
         <Searchbar onSubmit={this.handleSubmit}/>
         {status === 'resolved' && <ImageGallery imgData={images} onClickCard={this.onClickCard}/>}
-        {status === 'idle' && <p style={{color: 'rgb(4, 120, 128)', textAlign: "center"}}>Write something</p>}
+        {status === 'idle' && <p style={{color: 'rgb(4, 120, 128)', textAlign: "center", marginTop: '50px'}}>Write something</p>}
         {status === 'rejected' && <p style={{color: 'red',  textAlign: "center"}}>{error?.message}! Try again!</p>}
         {loading && <Loader/>}
         {images.length > 0 && <ButtonLoadMore disabled={loading} onClickBtn ={this.onClickLoadMoreBtn} />}

@@ -9,9 +9,9 @@ export const ImageGalleryItem = ({ imgData, onClickCard }) =>{
     
     return(
         <>
-        {imgData.map(({id,largeImageURL,tags}) =>(
+        {imgData.map(({id,webformatURL,tags}) =>(
             <Items onClick={()=>onClickCard(id)} key={id}>
-                <Img src={largeImageURL} alt={tags} width="300"/>
+                <Img src={webformatURL} alt={tags} width="300"/>
             </Items> 
         ))}
         </>
@@ -25,7 +25,7 @@ ImageGalleryItem.propTypes={
     imgData: PropTypes.arrayOf(
         PropTypes.shape({
           id: PropTypes.number.isRequired,
-          largeImageURL:  PropTypes.string.isRequired,
+          webformatURL:  PropTypes.string.isRequired,
           tags: PropTypes.string.isRequired,
         }),
     ),
