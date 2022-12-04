@@ -31,7 +31,8 @@ export class App extends Component {
       try {
         this.setState({loading: true})
         const resp = await getImages(inputValue, page)
-        const imagesData = resp.data.hits
+        const imagesData = resp.data.hits;
+        console.log(imagesData);
         
 
         if ( imagesData.length === 0) {

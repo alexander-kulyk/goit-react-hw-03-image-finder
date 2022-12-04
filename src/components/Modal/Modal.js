@@ -7,11 +7,13 @@ import { Overlay, ModalBody, Img } from "./Modal.styled";
 export class Modal extends Component{
 
     componentDidMount(){
-        window.addEventListener('keydown', this.handeleKeyDown)
+        window.addEventListener('keydown', this.handeleKeyDown);
+        window.addEventListener('click', this.onClickOverlay);
     }
 
     componentWillUnmount(){
-        window.removeEventListener('keydown',  this.handeleKeyDown )
+        window.removeEventListener('keydown',  this.handeleKeyDown );
+        window.removeEventListener('click', this.onClickOverlay);
     }
 
     handeleKeyDown = e =>{
@@ -20,12 +22,21 @@ export class Modal extends Component{
         }
     }
 
+    onClickOverlay = e =>{
+
+        if (e.target === e.currentTarget) {
+            this.props.toggle(); 
+        }
+
+    }
+
+
 
     render(){
         const { url, tags } = this.props
 
         return(
-            <Overlay>
+            <Overlay name="overlay" onClick={this.onClickOverlay}>
                 <ModalBody>
                     <Img src={url} alt={tags}/>
                 </ModalBody>
