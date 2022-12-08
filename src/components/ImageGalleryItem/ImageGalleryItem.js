@@ -5,16 +5,12 @@ import {Img, Items} from "./ImageGalleryItem.styled";
 
 
 
-export const ImageGalleryItem = ({ imgData, onClickCard }) =>{
+export const ImageGalleryItem = ({ webformatURL,tags, onClickCard, id }) =>{
     
     return(
-        <>
-        {imgData.map(({id,webformatURL,tags}) =>(
-            <Items onClick={()=>onClickCard(id)} key={id}>
-                <Img src={webformatURL} alt={tags} width="300"/>
-            </Items> 
-        ))}
-        </>
+        <Items onClick={()=>onClickCard(id)} >
+            <Img src={webformatURL} alt={tags} width="300"/>
+        </Items> 
         
     );
 };

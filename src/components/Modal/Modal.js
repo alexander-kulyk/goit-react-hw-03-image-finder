@@ -8,12 +8,11 @@ export class Modal extends Component{
 
     componentDidMount(){
         window.addEventListener('keydown', this.handeleKeyDown);
-        window.addEventListener('click', this.onClickOverlay);
+        
     }
 
     componentWillUnmount(){
         window.removeEventListener('keydown',  this.handeleKeyDown );
-        window.removeEventListener('click', this.onClickOverlay);
     }
 
     handeleKeyDown = e =>{

@@ -8,7 +8,15 @@ import ImgList from "./ImageGallery.styled"
 export const ImageGallery = ({ imgData, onClickCard }) =>{
     return(
             <ImgList >
-                <ImageGalleryItem imgData={imgData} onClickCard={onClickCard} />
+                {imgData.map(({ id,webformatURL,tags }) =>(
+                    <ImageGalleryItem 
+                        key={id} 
+                        webformatURL={webformatURL} 
+                        tags={tags} 
+                        id={id}
+                        onClickCard={onClickCard} 
+                        />
+                ) )}
             </ImgList>
 
     )

@@ -5,7 +5,7 @@ import { ImageGallery } from "./ImageGallery/ImageGallery";
 import { Loader } from "./Loader/Loader";
 import { Modal } from "./Modal/Modal";
 import { Searchbar } from "./Searchbar/Searchbar";
-import { getImages } from "./service/api";
+import { getImages } from "../service/api";
 
 import 'react-toastify/dist/ReactToastify.css';
 
