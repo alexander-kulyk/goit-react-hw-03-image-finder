@@ -43,8 +43,8 @@ export class App extends Component {
 
         this.setState({ 
               images: pS.inputValue === inputValue 
-                ? [...pS.images,...imagesData]
-                : [...imagesData],
+                ? [...pS.images,...imagesData.map(({id, webformatURL, largeImageURL,  tags}) =>({id, webformatURL, largeImageURL,  tags}))]
+                : [...imagesData.map(({id, webformatURL, largeImageURL,  tags}) =>({id, webformatURL, largeImageURL,  tags}))],
               loading: false, 
               status: 'resolved',
             })
